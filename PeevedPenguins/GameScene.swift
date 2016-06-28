@@ -57,7 +57,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let scene = GameScene(fileNamed:"GameScene") as GameScene!
             
             /* Ensure correct aspect mode */
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .AspectFit
             
             /* Show debug */
             skView.showsPhysics = true
@@ -124,23 +124,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        /* Add a new penguin to the scene */
-        let resourcePath = NSBundle.mainBundle().pathForResource("Penguin", ofType: "sks")
-        let penguin = MSReferenceNode(URL: NSURL (fileURLWithPath: resourcePath!))
-        addChild(penguin)
-        
-        /* Position penguin in the catapult bucket area */
-        penguin.avatar.position = catapultArm.position + CGPoint(x: 32, y: 50)
-        
-        /* Improves physics collision handling of fast moving objects */
-        penguin.avatar.physicsBody?.usesPreciseCollisionDetection = true
-        
-        /* Setup pin joint between penguin and catapult arm */
-        penguinJoint = SKPhysicsJointPin.jointWithBodyA(catapultArm.physicsBody!, bodyB: penguin.avatar.physicsBody!, anchor: penguin.avatar.position)
-        physicsWorld.addJoint(penguinJoint!)
-        
-        /* Set camera to follow penguin */
-        cameraTarget = penguin.avatar
+            /* Add a new penguin to the scene */
+            let resourcePath = NSBundle.mainBundle().pathForResource("Penguin", ofType: "sks")
+            let penguin = MSReferenceNode(URL: NSURL (fileURLWithPath: resourcePath!))
+            addChild(penguin)
+            
+            /* Position penguin in the catapult bucket area */
+            penguin.avatar.position = catapultArm.position + CGPoint(x: 32, y: 50)
+            
+            /* Improves physics collision handling of fast moving objects */
+            penguin.avatar.physicsBody?.usesPreciseCollisionDetection = true
+            
+            /* Setup pin joint between penguin and catapult arm */
+            penguinJoint = SKPhysicsJointPin.jointWithBodyA(catapultArm.physicsBody!, bodyB: penguin.avatar.physicsBody!, anchor: penguin.avatar.position)
+            physicsWorld.addJoint(penguinJoint!)
+            
+            /* Remove any camera actions */
+            camera?.removeAllActions()
+            
+            /* Set camera to follow penguin */
+            cameraTarget = penguin.avatar
     }
     
     override func update(currentTime: CFTimeInterval) {
@@ -151,11 +154,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             /* Set camera position to follow target horizontally, keep vertical locked */
             camera?.position = CGPoint(x:cameraTarget.position.x, y:camera!.position.y)
-        }
+        
         
         /* Clamp camera scrolling to our visible scene area only */
         camera?.position.x.clamp(283, 677)
         
+        /* Check penguin has come to rest */
+            if cameraTarget.physicsBody?.joints.count == 0 && cameraTarget.physicsBody?.velocity.length() < 1.2 || cameraTarget.position.x >= 960 || cameraTarget.position.x <= 0 {
+                
+                cameraTarget.removeFromParent()
+                
+                /* Reset catapult arm */
+                catapultArm.physicsBody?.velocity = CGVector(dx:0, dy:0)
+                catapultArm.physicsBody?.angularVelocity = 0
+                catapultArm.zRotation = 0
+                
+                /* Reset camera */
+                let cameraReset = SKAction.moveTo(CGPoint(x:284, y:camera!.position.y), duration: 1.5)
+                let cameraDelay = SKAction.waitForDuration(1.5)
+                let cameraSequence = SKAction.sequence([cameraDelay,cameraReset])
+                
+                camera?.runAction(cameraSequence)
+            }
+        
+        }
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -194,7 +216,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if contactA.categoryBitMask == 2 || contactB.categoryBitMask == 2 {
             
             /* Was the collision more than a gentle nudge? */
-            if contact.collisionImpulse > 2.0 {
+            if contact.collisionImpulse > 3.0 {
                 
                 /* Kill Seal(s) */
                 if contactA.categoryBitMask == 2 { dieSeal(nodeA) }
@@ -218,10 +240,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let particles = SKEmitterNode(fileNamed: "SealExplosion")!
         
         /* Convert node location (currently inside Level 1, to scene space) */
-        particles.position = convertPoint(node.position, fromNode: node)
+        particles.position = convertPoint(CGPoint( x:0, y:0), fromNode: node)
         
         /* Restrict total particles to reduce runtime of particle */
-        particles.numParticlesToEmit = 25
+        particles.numParticlesToEmit = 15
+        
         
         /* Add particles to scene */
         addChild(particles)
