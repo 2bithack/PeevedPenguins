@@ -36,6 +36,10 @@
 		4AFC6C0F1D21834A002AE79B /* SKTEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFC6C031D21834A002AE79B /* SKTEffects.swift */; };
 		4AFC6C101D21834A002AE79B /* SKTTimingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFC6C041D21834A002AE79B /* SKTTimingFunctions.swift */; };
 		4AFC6C111D21834A002AE79B /* Vector3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFC6C051D21834A002AE79B /* Vector3.swift */; };
+		4AFC6C141D21A59B002AE79B /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4AFC6C131D21A59B002AE79B /* Level1.sks */; };
+		4AFC6C171D220D6D002AE79B /* SealExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4AFC6C151D220D6D002AE79B /* SealExplosion.sks */; };
+		4AFC6C181D220D6D002AE79B /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AFC6C161D220D6D002AE79B /* spark.png */; };
+		4AFC6C1B1D2219BA002AE79B /* sfx_seal.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4AFC6C1A1D2219BA002AE79B /* sfx_seal.caf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +95,10 @@
 		4AFC6C031D21834A002AE79B /* SKTEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTEffects.swift; sourceTree = "<group>"; };
 		4AFC6C041D21834A002AE79B /* SKTTimingFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTTimingFunctions.swift; sourceTree = "<group>"; };
 		4AFC6C051D21834A002AE79B /* Vector3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3.swift; sourceTree = "<group>"; };
+		4AFC6C131D21A59B002AE79B /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
+		4AFC6C151D220D6D002AE79B /* SealExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SealExplosion.sks; sourceTree = "<group>"; };
+		4AFC6C161D220D6D002AE79B /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		4AFC6C1A1D2219BA002AE79B /* sfx_seal.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sfx_seal.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,14 +149,18 @@
 		4A05D65D1D215A4200829D96 /* PeevedPenguins */ = {
 			isa = PBXGroup;
 			children = (
+				4AFC6C121D21A559002AE79B /* Levels */,
 				4AFC6BF91D21834A002AE79B /* SKTUtils */,
 				4AE386711D216EA50052295B /* animalObjects */,
 				4A05D65E1D215A4200829D96 /* AppDelegate.swift */,
 				4AE3866D1D216CC80052295B /* MSReferenceNode.swift */,
 				4AFC6BF71D217D80002AE79B /* MSButtonNode.swift */,
+				4AFC6C191D2219BA002AE79B /* SFX 2 */,
 				4A05D6641D215A4200829D96 /* GameViewController.swift */,
 				4A05D6601D215A4200829D96 /* GameScene.sks */,
 				4A05D6621D215A4200829D96 /* GameScene.swift */,
+				4AFC6C151D220D6D002AE79B /* SealExplosion.sks */,
+				4AFC6C161D220D6D002AE79B /* spark.png */,
 				4AE386721D216FBE0052295B /* MainScene.sks */,
 				4AE386741D21745C0052295B /* MainScene.swift */,
 				4AE386691D2168E30052295B /* CharacterAnimations.sks */,
@@ -206,6 +218,23 @@
 				4AFC6C051D21834A002AE79B /* Vector3.swift */,
 			);
 			path = SKTUtils;
+			sourceTree = "<group>";
+		};
+		4AFC6C121D21A559002AE79B /* Levels */ = {
+			isa = PBXGroup;
+			children = (
+				4AFC6C131D21A59B002AE79B /* Level1.sks */,
+			);
+			name = Levels;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		4AFC6C191D2219BA002AE79B /* SFX 2 */ = {
+			isa = PBXGroup;
+			children = (
+				4AFC6C1A1D2219BA002AE79B /* sfx_seal.caf */,
+			);
+			path = "SFX 2";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,9 +342,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AE3866A1D2168E30052295B /* CharacterAnimations.sks in Resources */,
+				4AFC6C181D220D6D002AE79B /* spark.png in Resources */,
 				4A05D6611D215A4200829D96 /* GameScene.sks in Resources */,
 				4A05D66D1D215A4200829D96 /* LaunchScreen.storyboard in Resources */,
 				4AE386641D215FE90052295B /* assets.atlas in Resources */,
+				4AFC6C1B1D2219BA002AE79B /* sfx_seal.caf in Resources */,
+				4AFC6C171D220D6D002AE79B /* SealExplosion.sks in Resources */,
+				4AFC6C141D21A59B002AE79B /* Level1.sks in Resources */,
 				4AE386701D216DF00052295B /* Seal.sks in Resources */,
 				4AE386731D216FBE0052295B /* MainScene.sks in Resources */,
 				4AE386681D2167C90052295B /* Bear.sks in Resources */,
